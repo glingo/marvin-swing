@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<container>
+    <parameters>
+    </parameters>
+    
+    <services>
+        
+        <service id="swing.argument_resolver" class="com.marvin.bundle.swing.controller.ActionArgumentResolver" /> 
+        
+        <service id="swing.controller.resolver" class="com.marvin.bundle.swing.controller.ActionControllerResolver">
+            <argument type="service" ref="controller.name_parser"/>
+        </service>
+        
+        <!-- Action handler for swing -->
+        <service id="action_handler" class="com.marvin.bundle.swing.ActionHandler">
+            <argument type="service" ref="event_dispatcher"/>
+            <argument type="service" ref="swing.controller.resolver"/>
+            <argument type="service" ref="swing.argument_resolver"/>
+        </service>
+        
+    </services>
+</container>
