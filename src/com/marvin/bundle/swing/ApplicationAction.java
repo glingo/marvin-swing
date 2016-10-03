@@ -6,6 +6,8 @@
 package com.marvin.bundle.swing;
 
 import java.awt.event.ActionEvent;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.AbstractAction;
 import javax.swing.Icon;
 
@@ -25,7 +27,11 @@ public class ApplicationAction extends AbstractAction {
     
     @Override
     public void actionPerformed(ActionEvent e) {
-        handler.handle(this);
+        try {
+            handler.handle(this);
+        } catch (Exception ex) {
+            Logger.getLogger(ApplicationAction.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
 }
