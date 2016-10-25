@@ -3,9 +3,9 @@ package com.marvin.bundle.swing;
 import java.util.Stack;
 
 import com.marvin.component.event.EventDispatcher;
-import com.marvin.component.kernel.controller.ArgumentResolver;
-import com.marvin.component.kernel.controller.ControllerReference;
-import com.marvin.component.kernel.controller.ControllerResolverInterface;
+import com.marvin.bundle.framework.controller.argument.ArgumentResolver;
+import com.marvin.bundle.framework.controller.ControllerReference;
+import com.marvin.bundle.framework.controller.ControllerResolverInterface;
 import com.marvin.component.util.ReflectionUtils;
 import java.awt.Event;
 import java.util.Arrays;
