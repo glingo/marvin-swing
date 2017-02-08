@@ -1,52 +1,83 @@
 package com.marvin.bundle.swing;
 
+import com.marvin.bundle.framework.handler.Handler;
+import com.marvin.bundle.swing.utils.SwingUtils;
+import com.marvin.component.container.IContainer;
+import com.marvin.component.container.exception.ContainerException;
 import com.marvin.component.kernel.Kernel;
-import java.awt.Dimension;
+import java.awt.Container;
+import java.awt.event.ActionEvent;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
-import javax.swing.WindowConstants;
+import javax.swing.JMenuItem;
 
-public abstract class MarvinSwingApplication {
+public abstract class Application {
+
+    protected final Logger logger = Logger.getLogger(getClass().getName());
     
     private final Kernel kernel;
+    
     private JFrame frame;
-    private JMenuBar menuBar;
-    private JMenu menu;
+    private Container pane;
+    private Boolean ready;
 
-    public MarvinSwingApplication(Kernel kernel) {
+    protected Application(Kernel kernel) {
         this.kernel = kernel;
     }
     
-    protected abstract void buildFrame(JFrame frame);
-    protected abstract JMenuBar buildMenuBar();
+    protected abstract JMenuBar createMenu();
     
-    public ActionHandler getHandler(){
-        System.out.println(this.kernel.getContainer());
-        return this.kernel.getContainer().get("action_handler", ActionHandler.class);
-    }
-    
-    public JMenuBar getMenuBar(){
-        if(this.menuBar == null) {
-            this.menuBar = this.buildMenuBar();
-        }
-        return this.menuBar;
-    }
-    
-    public void show() {
-        this.kernel.boot();
+    public void initialize() {
+        this.frame = new JFrame();
+        this.pane = frame.getContentPane();
         
-        if(this.frame == null) {
-            this.frame = new JFrame();
-            this.frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-            this.frame.setPreferredSize(new Dimension(1200, 800));
-//            this.frame.setSize(new Dimension(1200, 800));
-            this.buildFrame(this.frame);
-        }
+        this.frame.setJMenuBar(createMenu());
         
-        this.frame.setJMenuBar(getMenuBar());
-        this.frame.pack();
-        this.frame.setVisible(true);
+	this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	this.frame.setLocationRelativeTo(null);
     }
     
+    public void startup() {
+        // dispatch home action event to display home view
+        ApplicationAction homeAction = createAction("home_action", "/");
+        fireAction(homeAction, this.pane);
+        ready();
+    }
+    
+    public void ready() {
+        SwingUtils.show(this.frame);
+        this.ready = true;
+    }
+    
+    public void shutdown() {}
+    
+    public final void exit() {}
+    
+    public void end() {
+        Runtime.getRuntime().exit(0);
+    }
+    
+    public void waitForReady() {};
+
+    public IContainer getContainer(){
+        return this.kernel.getContainer();
+    }
+    
+    public Handler getHandler() {
+        try {
+            return getContainer().get("action_handler", Handler.class);
+        }catch(ContainerException ce) {
+            throw new RuntimeException("Could not load application.");
+        }
+    }
+    
+    public ApplicationAction createAction(String name, String command) {
+        return new ApplicationAction(name, command, getHandler());
+    }
+    
+    public void fireAction(ApplicationAction action, Container pane) {
+        action.actionPerformed(new ActionEvent(pane, 0, "/"));
+    }
 }

@@ -1,22 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <container>
+    
     <parameters>
     </parameters>
     
     <services>
         
+        <service id="view.container_resolver" class="com.marvin.bundle.framework.mvc.view.resolver.ContainerViewResolver" /> 
+        
+        <service id="swing.view_resolver" class="com.marvin.bundle.framework.mvc.view.resolver.ViewResolverDelegate"> 
+            <argument>
+                <list>
+                    <argument type="service" ref="view.container_resolver" />
+                </list>
+            </argument>
+        </service>
+        
         <service id="swing.argument_resolver" class="com.marvin.bundle.swing.controller.ActionArgumentResolver" /> 
         
-        <service id="swing.controller.resolver" class="com.marvin.bundle.swing.controller.ActionControllerResolver">
+        <service id="swing.controller_resolver" class="com.marvin.bundle.swing.controller.ActionControllerResolver">
             <argument type="service" ref="controller.name_parser"/>
         </service>
         
         <!-- Action handler for swing -->
-        <service id="action_handler" class="com.marvin.bundle.swing.ActionHandler">
+        <service id="action_handler" class="com.marvin.bundle.framework.handler.Handler">
             <argument type="service" ref="event_dispatcher"/>
-            <argument type="service" ref="swing.controller.resolver"/>
+            <argument type="service" ref="swing.controller_resolver"/>
             <argument type="service" ref="swing.argument_resolver"/>
+            <argument type="service" ref="swing.view_resolver"/>
         </service>
         
+        <!-- Router subscriber definition -->
+        <service id="router.subscriber" class="com.marvin.bundle.swing.subscriber.RouterSubscriber">
+            <argument type="service" ref="router"/>
+            <tag name="event_subscriber"/>
+        </service>
+
     </services>
 </container>
