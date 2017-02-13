@@ -66,11 +66,7 @@ public abstract class Application {
     }
     
     public Handler getHandler() {
-        try {
-            return getContainer().get("action_handler", Handler.class);
-        }catch(ContainerException ce) {
-            throw new RuntimeException("Could not load application.");
-        }
+        return getContainer().get("action_handler", Handler.class);
     }
     
     public ApplicationAction createAction(String name, String command) {

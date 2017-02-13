@@ -11,7 +11,7 @@ public abstract class AbstractSwingView implements IView<Action, JRootPane> {
     private Boolean initialized = Boolean.FALSE;
     
     protected void init() {
-        if(initialized.equals(Boolean.TRUE)) {
+        if(this.initialized.equals(Boolean.TRUE)) {
             return;
         }
         
