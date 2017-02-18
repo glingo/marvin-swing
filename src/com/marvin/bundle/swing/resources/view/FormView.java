@@ -1,13 +1,12 @@
 package com.marvin.bundle.swing.resources.view;
 
 import java.awt.Container;
-import java.awt.Window;
 import java.util.HashMap;
 
 public class FormView<T> extends AbstractSwingView {
 
     @Override
-    protected void prepare() {
+    protected void prepare(HashMap<String, ?> model, Container pane) {
         
     }
 
