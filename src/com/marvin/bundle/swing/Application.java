@@ -1,7 +1,7 @@
 package com.marvin.bundle.swing;
 
+import com.marvin.bundle.swing.action.ApplicationAction;
 import com.marvin.bundle.framework.handler.Handler;
-import com.marvin.bundle.swing.utils.SwingUtils;
 import com.marvin.component.container.IContainer;
 import com.marvin.component.kernel.Kernel;
 import java.awt.Container;
@@ -77,7 +77,7 @@ public abstract class Application {
     }
     
     public ApplicationAction createAction(String name, String command) {
-        ApplicationAction action = new ApplicationAction(name, command, getHandler(), getPane());
+        ApplicationAction action = new ApplicationAction(name, command, getHandler(), getFrame());
         return action;
     }
     

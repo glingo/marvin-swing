@@ -8,6 +8,11 @@
         
         <service id="view.container_resolver" class="com.marvin.bundle.framework.mvc.view.resolver.ContainerViewResolver" /> 
         
+        <service id="view.path_resolver" class="com.marvin.bundle.framework.mvc.view.resolver.PathViewResolver"> 
+            <argument type="java.lang.String" value="/WEB-INF/jsp/" />
+            <argument type="java.lang.String" value=".jsp" />
+        </service>
+        
         <service id="swing.view_resolver" class="com.marvin.bundle.framework.mvc.view.resolver.ViewResolverDelegate"> 
             <argument>
                 <list>
@@ -16,7 +21,13 @@
             </argument>
         </service>
         
-        <service id="swing.argument_resolver" class="com.marvin.bundle.swing.controller.ActionArgumentResolver" /> 
+        <service id="action_attribute.argument_resolver" class="com.marvin.bundle.swing.controller.argumentResolver.ActionAtributeValueResolver">
+            <tag name="argument_resolver" />
+        </service> 
+        
+        <service id="action_value.argument_resolver" class="com.marvin.bundle.swing.controller.argumentResolver.ActionValueResolver">
+            <tag name="argument_resolver" />
+        </service>
         
         <service id="swing.controller_resolver" class="com.marvin.bundle.swing.controller.ActionControllerResolver">
             <argument type="service" ref="controller.name_parser"/>
@@ -26,7 +37,7 @@
         <service id="action_handler" class="com.marvin.bundle.framework.handler.Handler">
             <argument type="service" ref="event_dispatcher"/>
             <argument type="service" ref="swing.controller_resolver"/>
-            <argument type="service" ref="swing.argument_resolver"/>
+            <argument type="service" ref="argument_resolver"/>
             <argument type="service" ref="swing.view_resolver"/>
         </service>
         

@@ -3,7 +3,7 @@ package com.marvin.bundle.swing.subscriber;
 import com.marvin.bundle.framework.handler.event.GetModelAndViewEvent;
 import com.marvin.bundle.framework.handler.event.HandlerEvent;
 import com.marvin.bundle.framework.handler.event.HandlerEvents;
-import com.marvin.bundle.swing.ApplicationAction;
+import com.marvin.bundle.swing.action.ApplicationAction;
 import com.marvin.component.event.EventSubscriber;
 
 import com.marvin.component.routing.Router;
