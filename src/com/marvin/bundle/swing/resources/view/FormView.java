@@ -6,15 +6,15 @@ import com.marvin.component.form.FormTypeInterface;
 import com.marvin.component.form.support.ButtonType;
 import com.marvin.component.form.support.CheckboxType;
 import com.marvin.component.form.support.PasswordType;
+import com.marvin.component.form.support.TextType;
 import java.awt.TextField;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import javax.swing.Action;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
-import javax.swing.JComponent;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
@@ -26,31 +26,26 @@ import org.jdesktop.beansbinding.ELProperty;
 
 public class FormView extends SwingView {
 
-//    protected Map<String, JComponent> components = new HashMap<>();
     protected Object data;
-//    private JButton submit;
-//    private JButton cancel;
-
-    public FormView(Handler handler) {
+    protected String formName;
+    
+    public FormView(Handler handler, String formName) {
         super(handler);
+        this.formName = formName;
     }
 
     @Override
-    protected void prepare(HashMap<String, ?> model, JFrame frame) throws Exception {
-        FormTypeInterface form = (FormTypeInterface) model.get("form");
-
+    protected void prepare(HashMap<String, Object> model, JFrame frame) throws Exception {
+        FormTypeInterface form = (FormTypeInterface) model.get(this.formName);
+        
         if (form == null) {
             throw new Exception("null form");
         }
-        
+
         this.data = form.getData();
-
-//        this.data = new LoginForm("Login", "Password");
-//        LoginForm data = form.getData();
-
-        JPanel panel = getPanel();
-
+        
         BindingGroup bindingGroup = new BindingGroup();
+        JPanel panel = getPanel();
 
         if (form.getLabel() != null) {
             frame.setTitle(form.getLabel());
@@ -59,7 +54,10 @@ public class FormView extends SwingView {
         List<FormTypeInterface> children = form.getChildren();
         children.forEach((FormTypeInterface child) -> {
             if (child instanceof PasswordType) {
-//               this.components.put(child.getName() + "_label", new JLabel(child.getLabel()));
+                 if (null != child.getLabel()) {
+                    JLabel label = new JLabel(child.getLabel());
+                    panel.add(label);
+                }
                 JPasswordField field = new JPasswordField(20);
                 panel.add(field);
                 bindingGroup.addBinding(Bindings.createAutoBinding(
@@ -69,9 +67,13 @@ public class FormView extends SwingView {
                         field, 
                         BeanProperty.create("text"), 
                         child.getName()));
-            } else if (child instanceof TextField) {
+            } else if (child instanceof TextType) {
+                if (null != child.getLabel()) {
+                    JLabel label = new JLabel(child.getLabel());
+                    panel.add(label);
+                }
                 JTextField field = new JTextField((String) child.getData(), 20);
-                panel.add(field);
+                add(field);
                 bindingGroup.addBinding(Bindings.createAutoBinding(
                         AutoBinding.UpdateStrategy.READ_WRITE, data, 
                         ELProperty.create("${" + child.getName() + "}"), 
@@ -79,6 +81,10 @@ public class FormView extends SwingView {
                         BeanProperty.create("text"), 
                         child.getName()));
             } else if (child instanceof CheckboxType) {
+                 if (null != child.getLabel()) {
+                    JLabel label = new JLabel(child.getLabel());
+                    panel.add(label);
+                }
                 JCheckBox cb = new JCheckBox(child.getLabel(), (boolean) child.getData());
                 panel.add(cb);
                 bindingGroup.addBinding(Bindings.createAutoBinding(
@@ -88,9 +94,14 @@ public class FormView extends SwingView {
                         BeanProperty.create("selected"), 
                         child.getName()));
             } else if (child instanceof ButtonType) {
-                Action action = new ApplicationAction(child.getLabel(), ((ButtonType) child).getAction(), getHandler(), frame);
-                panel.add(new JButton(action));
+                Action action = createAction(child.getLabel(), ((ButtonType) child).getAction(), frame);
+                JButton button = new JButton(action);
+                panel.add(button);
             } else {
+                 if (null != child.getLabel()) {
+                    JLabel label = new JLabel(child.getLabel());
+                    panel.add(label);
+                }
                 JTextField field = new JTextField((String) child.getData(), 20);
                 panel.add(field);
                 bindingGroup.addBinding(Bindings.createAutoBinding(
@@ -101,40 +112,18 @@ public class FormView extends SwingView {
                         child.getName()));
             }
         });
-
-        JButton look = new JButton("Take a look");
-        look.addActionListener((java.awt.event.ActionEvent evt) -> {
-            System.out.println(data);
-        });
-        panel.add(look);
-
         bindingGroup.bind();
-
-//        String label = "Password :";
-//        
-//        this.passwordLabel = new JLabel("Password :");
-//        this.passwordField = new JPasswordField();
-//        
-//        this.getPanel().add(this.passwordLabel);
-//        this.getPanel().add(this.passwordField);
-//        
-//        this.usernameLabel = new JLabel("Username :");
-//        this.usernameField = new JTextField();
-//        
-//        this.getPanel().add(this.usernameLabel);
-//        this.getPanel().add(this.usernameField);
-//        Action connectAction = new ApplicationAction("Se connecter", "/login", getHandler(), frame);
-//        Action cancelAction = new ApplicationAction("Anuler", "/", getHandler(), frame);
-//        this.submit = new JButton(connectAction);
-//        this.cancel = new JButton(cancelAction);
-//        
-//        this.getPanel().add(this.submit);
-//        this.getPanel().add(this.cancel);
     }
 
     @Override
-    protected void display(HashMap<String, ?> model, JFrame frame) {
+    protected void display(HashMap<String, Object> model, JFrame frame) {
         frame.getContentPane().removeAll();
         super.display(model, frame);
+    }
+    
+    public FormView bind(JTextField filed) {
+        
+        
+        return this;
     }
 }
