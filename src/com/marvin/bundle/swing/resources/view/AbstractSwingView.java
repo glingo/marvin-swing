@@ -1,8 +1,9 @@
 package com.marvin.bundle.swing.resources.view;
 
-import com.marvin.bundle.framework.handler.Handler;
-import com.marvin.bundle.framework.mvc.view.IView;
+import com.marvin.component.mvc.view.ViewInterface;
 import com.marvin.bundle.swing.action.ApplicationAction;
+import com.marvin.bundle.framework.mvc.Handler;
+import com.marvin.component.mvc.view.View;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.util.HashMap;
@@ -11,16 +12,19 @@ import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-public abstract class AbstractSwingView implements IView<Action, JFrame> {
+public abstract class AbstractSwingView extends View<Action, JFrame> {
     
     private Boolean initialized = Boolean.FALSE;
     
-    private final Handler handler;
+    private Handler<Action, JFrame> handler;
     private JPanel panel;
 
-    public AbstractSwingView(Handler handler, JPanel panel) {
-        this.handler = handler;
-        this.panel = panel;
+    public AbstractSwingView(String name) {
+        super(name);
+    }
+
+    @Override
+    public void load() throws Exception {
     }
     
     protected void init(HashMap<String, Object> model, JFrame frame) throws Exception {
@@ -46,7 +50,8 @@ public abstract class AbstractSwingView implements IView<Action, JFrame> {
     }
 
     @Override
-    public void render(HashMap<String, Object> model, Action request, JFrame frame) throws Exception {
+    public void render(Handler<Action, JFrame> handler, HashMap<String, Object> model, Action request, JFrame frame) throws Exception {
+        this.handler = handler;
         init(model, frame);
         display(model, frame);
         this.getPanel().repaint();
@@ -77,11 +82,14 @@ public abstract class AbstractSwingView implements IView<Action, JFrame> {
         return this;
     }
     
-    public Handler getHandler() {
+    public Handler<Action, JFrame> getHandler() {
         return handler;
     }
 
     public JPanel getPanel() {
+        if (panel == null) {
+            panel = new JPanel();
+        }
         return panel;
     }
 

@@ -1,13 +1,11 @@
 package com.marvin.bundle.swing.resources.view;
 
-import com.marvin.bundle.framework.handler.Handler;
-import com.marvin.bundle.swing.action.ApplicationAction;
 import com.marvin.component.form.FormTypeInterface;
 import com.marvin.component.form.support.ButtonType;
 import com.marvin.component.form.support.CheckboxType;
 import com.marvin.component.form.support.PasswordType;
 import com.marvin.component.form.support.TextType;
-import java.awt.TextField;
+import com.marvin.bundle.framework.mvc.Handler;
 import java.util.HashMap;
 import java.util.List;
 import javax.swing.Action;
@@ -28,10 +26,9 @@ public class FormView extends SwingView {
 
     protected Object data;
     protected String formName;
-    
-    public FormView(Handler handler, String formName) {
-        super(handler);
-        this.formName = formName;
+
+    public FormView(String name) {
+        super(name);
     }
 
     @Override

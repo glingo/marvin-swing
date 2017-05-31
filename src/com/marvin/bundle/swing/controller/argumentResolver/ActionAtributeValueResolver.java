@@ -1,7 +1,7 @@
 package com.marvin.bundle.swing.controller.argumentResolver;
 
-import com.marvin.component.kernel.controller.argument.ArgumentMetadata;
-import com.marvin.component.kernel.controller.argument.ArgumentValueResolverInterface;
+import com.marvin.component.mvc.controller.argument.ArgumentMetadata;
+import com.marvin.component.mvc.controller.argument.ArgumentValueResolverInterface;
 import javax.swing.Action;
 
 public class ActionAtributeValueResolver implements ArgumentValueResolverInterface<Action, Object>  {

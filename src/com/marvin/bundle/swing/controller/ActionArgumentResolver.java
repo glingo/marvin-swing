@@ -1,8 +1,8 @@
 package com.marvin.bundle.swing.controller;
 
-import com.marvin.component.kernel.controller.argument.ArgumentResolver;
-import com.marvin.component.kernel.controller.argument.ArgumentValueResolverInterface;
-import com.marvin.component.kernel.controller.argument.argumentResolver.DefaultValueResolver;
+import com.marvin.component.mvc.controller.argument.ArgumentResolver;
+import com.marvin.component.mvc.controller.argument.ArgumentValueResolverInterface;
+import com.marvin.component.mvc.controller.argument.argumentResolver.DefaultValueResolver;
 import java.util.ArrayList;
 import java.util.List;
 import com.marvin.bundle.swing.controller.argumentResolver.ActionAtributeValueResolver;

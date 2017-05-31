@@ -1,6 +1,6 @@
 package com.marvin.bundle.swing.action;
 
-import com.marvin.bundle.framework.handler.Handler;
+import com.marvin.bundle.framework.mvc.Handler;
 import java.awt.event.ActionEvent;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -39,6 +39,7 @@ public class ApplicationAction extends AbstractAction {
         try {
             this.handler.handle(this, this.frame, true);
         } catch (Exception ex) {
+            ex.printStackTrace();
             LOG.log(Level.SEVERE, ex.getMessage());
             JOptionPane.showMessageDialog(this.frame, ex.getMessage());
         }

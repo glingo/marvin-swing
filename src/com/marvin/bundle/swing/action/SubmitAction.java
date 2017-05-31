@@ -1,6 +1,6 @@
 package com.marvin.bundle.swing.action;
 
-import com.marvin.bundle.framework.handler.Handler;
+import com.marvin.bundle.framework.mvc.Handler;
 import java.awt.event.ActionEvent;
 import javax.swing.JFrame;
 

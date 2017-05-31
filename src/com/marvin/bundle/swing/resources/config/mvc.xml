@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<container>
+    <services>
+        
+        <!-- Argument -->
+        <service id="action_attribute.argument_resolver" class="com.marvin.bundle.swing.controller.argumentResolver.ActionAtributeValueResolver">
+            <tag name="argument_resolver" />
+        </service> 
+        
+        <service id="action_value.argument_resolver" class="com.marvin.bundle.swing.controller.argumentResolver.ActionValueResolver">
+            <tag name="argument_resolver" />
+        </service>
+        
+        <!-- View -->
+<!--        <service id="swing.path_view_resolver" class="com.marvin.component.mvc.view.resolver.PathViewResolver"> 
+            <argument type="java.lang.String" value="%kernel.root_dir%/resources/view/swing/" />
+            <argument type="java.lang.String" value="" />
+            <tag name="view_resolver" />
+        </service>-->
+        
+<!--        <service id="swing.container_view_resolver" class="com.marvin.component.mvc.view.resolver.ContainerViewResolver">
+            <tag name="view_resolver" />
+        </service> -->
+<!--        
+        <service id="view.resource_resolver" class="com.marvin.component.mvc.view.resolver.ResourceViewResolver">
+            <argument type="service" ref="kernel"/>
+            <argument type="java.lang.String" value=".resources.view.swing." />
+            <argument type="java.lang.String" value=""/>
+            <tag name="view_resolver" />
+        </service> -->
+        
+        <!-- Controller -->
+        <service id="swing.controller_resolver" class="com.marvin.bundle.swing.controller.ActionControllerResolver">
+            <argument type="service" ref="controller.name_parser"/>
+            <tag name="controller_resolver" />
+        </service>
+    </services>
+</container>
