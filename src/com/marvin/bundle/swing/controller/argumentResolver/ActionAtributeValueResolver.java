@@ -8,7 +8,7 @@ public class ActionAtributeValueResolver implements ArgumentValueResolverInterfa
 
     @Override
     public boolean support(Action action, Object response, ArgumentMetadata argument) {
-        return !argument.isIsVariadic() && action.getValue(argument.getName()) != null;
+        return !argument.isVariadic() && action.getValue(argument.getName()) != null;
     }
 
     @Override

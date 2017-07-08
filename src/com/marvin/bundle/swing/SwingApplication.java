@@ -1,7 +1,6 @@
 package com.marvin.bundle.swing;
 
 import com.marvin.bundle.framework.Application;
-import static com.marvin.bundle.framework.Application.create;
 import com.marvin.bundle.swing.action.ApplicationAction;
 import com.marvin.component.kernel.Kernel;
 import java.awt.Container;
@@ -16,14 +15,14 @@ public abstract class SwingApplication extends Application {
     private JFrame frame;
     private Container pane;
 
-    protected SwingApplication(Kernel kernel) {
-        super(kernel);
+    public SwingApplication(String environment, boolean debug) {
+        super(environment, debug);
     }
     
     protected abstract JMenuBar createMenu(JMenuBar menuBar);
     
     @Override
-    public void initialize() {
+    public void startup() {
         this.frame = new JFrame();
         this.pane = frame.getContentPane();
         
@@ -32,11 +31,11 @@ public abstract class SwingApplication extends Application {
         
 	this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	this.frame.setLocationRelativeTo(null);
-        super.initialize();
+        super.startup();
     }
     
     @Override
-    public void startup() {
+    public void waitForReady() {
         // dispatch home action event to display home view
         ApplicationAction homeAction = createAction("home_action", "/");
         fireAction(homeAction, this.pane);
@@ -90,9 +89,9 @@ public abstract class SwingApplication extends Application {
         window.setVisible(false);
     }
     
-    public static synchronized <T extends Application> void launch(final Class<T> applicationClass, Kernel kernel) {
-	SwingUtilities.invokeLater(() -> Application.launch(applicationClass, kernel));
-    }
+//    public static synchronized <T extends Application> void launch(final Class<T> applicationClass, String[] args) {
+//	SwingUtilities.invokeLater(() -> Application.launch(applicationClass, args));
+//    }
     
 //    public static <T extends Application> T create(Class<T> applicationClass, Kernel kernel) throws Exception {
 //

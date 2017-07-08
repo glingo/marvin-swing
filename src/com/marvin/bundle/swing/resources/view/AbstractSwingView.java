@@ -1,6 +1,5 @@
 package com.marvin.bundle.swing.resources.view;
 
-import com.marvin.component.mvc.view.ViewInterface;
 import com.marvin.bundle.swing.action.ApplicationAction;
 import com.marvin.bundle.framework.mvc.Handler;
 import com.marvin.component.mvc.view.View;
@@ -49,7 +48,6 @@ public abstract class AbstractSwingView extends View<Action, JFrame> {
         frame.doLayout();
     }
 
-    @Override
     public void render(Handler<Action, JFrame> handler, HashMap<String, Object> model, Action request, JFrame frame) throws Exception {
         this.handler = handler;
         init(model, frame);

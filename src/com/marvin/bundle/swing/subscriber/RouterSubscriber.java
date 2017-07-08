@@ -1,19 +1,20 @@
 package com.marvin.bundle.swing.subscriber;
 
+import com.marvin.bundle.console.command.Command;
 import com.marvin.bundle.swing.action.ApplicationAction;
-import event_old.EventConsumer;
-import event_old.EventSubscriber;
 import com.marvin.bundle.framework.mvc.event.FilterRequestEvent;
 import com.marvin.bundle.framework.mvc.event.HandlerEvent;
 import com.marvin.bundle.framework.mvc.event.HandlerEvents;
+import com.marvin.component.event.dispatcher.DispatcherInterface;
+import com.marvin.component.event.handler.Handler;
+import com.marvin.component.event.subscriber.Subscriber;
 
 import com.marvin.component.routing.Router;
 
-import java.util.HashMap;
 import java.util.Map;
 import javax.swing.Action;
 
-public class RouterSubscriber extends EventSubscriber<HandlerEvent> {
+public class RouterSubscriber extends Subscriber {
 
     private final Router router;
 
@@ -21,8 +22,9 @@ public class RouterSubscriber extends EventSubscriber<HandlerEvent> {
         this.router = router;
     }
     
-    public void onRequest(HandlerEvent event){
-        if(event instanceof FilterRequestEvent) {
+    
+    public Handler<FilterRequestEvent> onRequest(){
+        return event -> {
             FilterRequestEvent e = (FilterRequestEvent) event;
             Object request = e.getRequest();
             
@@ -37,14 +39,11 @@ public class RouterSubscriber extends EventSubscriber<HandlerEvent> {
                 
                // e.setRequest(action);
             }
-        }
+        };
     }
 
     @Override
-    public Map<String, EventConsumer<HandlerEvent>> getSubscribedEvents() {
-        Map<String, EventConsumer<HandlerEvent>> subscribed = new HashMap<>();
-        subscribed.put(HandlerEvents.FILTER_REQUEST, this::onRequest);
-        return subscribed;
+    public void subscribe(DispatcherInterface dispatcher) {
+        dispatcher.register(FilterRequestEvent.class, onRequest());
     }
-    
 }

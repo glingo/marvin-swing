@@ -1,6 +1,6 @@
 package com.marvin.bundle.swing.view.xml;
 
-import com.marvin.bundle.swing.view.SwingView;
+import com.marvin.bundle.swing.resources.view.SwingView;
 import com.marvin.component.io.xml.XMLDocumentReader;
 import com.marvin.component.io.xml.XMLReaderContext;
 import com.marvin.component.mvc.view.ViewInterface;
