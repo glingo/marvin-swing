@@ -34,5 +34,6 @@
             <argument type="service" ref="controller.name_parser"/>
             <tag name="controller_resolver" />
         </service>
+        
     </services>
 </container>

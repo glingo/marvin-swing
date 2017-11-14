@@ -2,13 +2,10 @@ package com.marvin.bundle.swing;
 
 import com.marvin.bundle.framework.Application;
 import com.marvin.bundle.swing.action.ApplicationAction;
-import com.marvin.component.kernel.Kernel;
 import java.awt.Container;
 import java.awt.Window;
 import java.awt.event.ActionEvent;
 import javax.swing.JFrame;
-import javax.swing.JMenuBar;
-import javax.swing.SwingUtilities;
 
 public abstract class SwingApplication extends Application {
 
@@ -19,14 +16,14 @@ public abstract class SwingApplication extends Application {
         super(environment, debug);
     }
     
-    protected abstract JMenuBar createMenu(JMenuBar menuBar);
+//    protected abstract JMenuBar createMenu(JMenuBar menuBar);
     
     @Override
     public void startup() {
         this.frame = new JFrame();
         this.pane = frame.getContentPane();
         
-        this.frame.setJMenuBar(createMenu(new JMenuBar()));
+//        this.frame.setJMenuBar(createMenu(new JMenuBar()));
 //        this.frame.setJMenuBar(new JMenuBar());
         
 	this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -36,14 +33,14 @@ public abstract class SwingApplication extends Application {
     
     @Override
     public void waitForReady() {
-        // dispatch home action event to display home view
-        ApplicationAction homeAction = createAction("home_action", "/");
-        fireAction(homeAction, this.pane);
         ready();
     }
     
     @Override
     public void ready() {
+        // dispatch home action event to display home view
+        ApplicationAction homeAction = createAction("home_action", "/");
+        fireAction(homeAction, this.pane);
         show(this.frame);
     }
     

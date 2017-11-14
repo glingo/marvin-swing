@@ -6,7 +6,7 @@ import com.marvin.component.form.support.CheckboxType;
 import com.marvin.component.form.support.PasswordType;
 import com.marvin.component.form.support.TextType;
 import com.marvin.bundle.framework.mvc.Handler;
-import java.util.HashMap;
+import com.marvin.component.mvc.model.Model;
 import java.util.List;
 import javax.swing.Action;
 import javax.swing.JButton;
@@ -32,7 +32,7 @@ public class FormView extends SwingView {
     }
 
     @Override
-    protected void prepare(HashMap<String, Object> model, JFrame frame) throws Exception {
+    protected void prepare(Handler<Action, JFrame> handler, Model model, JFrame frame) throws Exception {
         FormTypeInterface form = (FormTypeInterface) model.get(this.formName);
         
         if (form == null) {
@@ -91,7 +91,7 @@ public class FormView extends SwingView {
                         BeanProperty.create("selected"), 
                         child.getName()));
             } else if (child instanceof ButtonType) {
-                Action action = createAction(child.getLabel(), ((ButtonType) child).getAction(), frame);
+                Action action = createAction(child.getLabel(), ((ButtonType) child).getAction(), handler, frame);
                 JButton button = new JButton(action);
                 panel.add(button);
             } else {
@@ -113,14 +113,12 @@ public class FormView extends SwingView {
     }
 
     @Override
-    protected void display(HashMap<String, Object> model, JFrame frame) {
+    protected void display(Model model, JFrame frame) {
         frame.getContentPane().removeAll();
         super.display(model, frame);
     }
     
     public FormView bind(JTextField filed) {
-        
-        
         return this;
     }
 }
