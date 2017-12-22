@@ -6,7 +6,7 @@ import com.marvin.component.form.support.CheckboxType;
 import com.marvin.component.form.support.PasswordType;
 import com.marvin.component.form.support.TextType;
 import com.marvin.bundle.framework.mvc.Handler;
-import com.marvin.component.mvc.model.Model;
+import com.marvin.bundle.framework.mvc.model.Model;
 import java.util.List;
 import javax.swing.Action;
 import javax.swing.JButton;

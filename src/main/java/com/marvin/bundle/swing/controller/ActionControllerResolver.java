@@ -2,7 +2,7 @@ package com.marvin.bundle.swing.controller;
 
 import com.marvin.bundle.framework.mvc.controller.ContainerControllerResolver;
 import com.marvin.bundle.framework.mvc.controller.ControllerNameParser;
-import com.marvin.component.mvc.controller.ControllerReference;
+import com.marvin.bundle.framework.mvc.controller.ControllerReference;
 import javax.swing.Action;
 
 public class ActionControllerResolver extends ContainerControllerResolver<Action> {

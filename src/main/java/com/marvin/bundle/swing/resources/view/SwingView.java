@@ -1,9 +1,9 @@
 package com.marvin.bundle.swing.resources.view;
 
 import com.marvin.bundle.framework.mvc.Handler;
+import com.marvin.bundle.framework.mvc.model.Model;
+import com.marvin.bundle.framework.mvc.view.View;
 import com.marvin.bundle.swing.action.ApplicationAction;
-import com.marvin.component.mvc.model.Model;
-import com.marvin.component.mvc.view.View;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.util.Map;

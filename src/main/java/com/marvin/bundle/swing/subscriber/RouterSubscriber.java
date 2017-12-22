@@ -1,10 +1,7 @@
 package com.marvin.bundle.swing.subscriber;
 
-import com.marvin.bundle.console.command.Command;
+import com.marvin.bundle.framework.mvc.controller.event.FilterRequestEvent;
 import com.marvin.bundle.swing.action.ApplicationAction;
-import com.marvin.bundle.framework.mvc.event.FilterRequestEvent;
-import com.marvin.bundle.framework.mvc.event.HandlerEvent;
-import com.marvin.bundle.framework.mvc.event.HandlerEvents;
 import com.marvin.component.event.dispatcher.DispatcherInterface;
 import com.marvin.component.event.handler.Handler;
 import com.marvin.component.event.subscriber.Subscriber;
